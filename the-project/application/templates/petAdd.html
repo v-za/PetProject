@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class ="content-section">
+      <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="">Add your Pet Demo!</legend>
+            <div class="form-group">
+              {{  form.petName.label(class="form-control-label") }}
+              {{  form.petName(class="form-control form-control-sm") }}
+            </div>
+            <div class="form-group">
+                {{  form.petType.label(class="form-control-label") }}
+                {{  form.petType(class="form-control form-control-sm") }}
+            </div>
+            <div class="form-group">
+                {{  form.petAge.label(class="form-control-label") }}
+                {{  form.petAge(class="form-control form-control-sm") }}
+            </div>
+          </fieldset>
+          <div class="fom-group">
+            {{ form.submit(class="btn btn-dark btn-sm") }}
+          </div>
+        </form>
+
+      <form method="POST" action="">
+        {{ formDel.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="">Delete by ID!</legend>
+            <div class="form-group">
+              {{  formDel.id.label(class="form-control-label") }}
+              {{  formDel.id(class="form-control form-control-sm") }}
+            </div>
+        </fieldset>
+        <div class="fom-group">
+          {{ formDel.delete(class="btn btn-danger btn-sm ") }}
+        </div>
+
+        </form>
+      </div>
+
+
+
+      <div class="border-top pt-3">
+        </div>
+
+        <h1>Pet Database</h1>
+
+
+
+
+        <table class="table table-bordered table-warning" style="width:0%">
+
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Age</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for pet in pets %}
+          <tr>
+            <td>{{ pet.id }}</td>
+            <td>{{ pet.petName }}</td>
+            <td>{{ pet.petType }}</td>
+            <td>{{ pet.petAge }}</td>
+          </tr>
+          {% endfor %}
+          </tbody>
+
+        </table>
+
+
+
+{% endblock content %}
