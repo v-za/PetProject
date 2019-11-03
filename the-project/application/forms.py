@@ -13,6 +13,7 @@ class UserRegistrationForm(FlaskForm):
     firstName = StringField('First Name', validators=[DataRequired()])          #other arguments are constraints
     lastName = StringField('Last Name', validators=[DataRequired()])
     email = StringField('Email',validators=[DataRequired(),Email()])
+    phone = StringField('Phone Number',validators=[DataRequired()])
     password = PasswordField('Password',validators=[DataRequired(message="Please Enter a Password")])
     confirm_password = PasswordField('Confirm Password',validators=[DataRequired(),EqualTo('password')])
     submit = SubmitField('Sign Up')
@@ -57,7 +58,10 @@ class ProductAddForm(FlaskForm):
 
 class UpdateAccountForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(),Length(min=2, max=40) ])
+    firstName = StringField('First Name', validators=[DataRequired()])          #other arguments are constraints
+    lastName = StringField('Last Name', validators=[DataRequired()])
     email = StringField('Email',validators=[DataRequired(),Email()])
+    phone = StringField('Phone Number',validators=[DataRequired()])
     picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg','jpeg','png'])])
     submit = SubmitField('Update')
 
@@ -72,3 +76,7 @@ class UpdateAccountForm(FlaskForm):
             user = User.query.filter_by(email=email.data).first()
             if user:
                 raise ValidationError("This email is taken. Please choose another one.")
+
+class MeetingAddForm(FlaskForm):
+    date = StringField('What date do you want to visit? Check the list below for dates already taken.', validators=[DataRequired()])
+    submit = SubmitField('Submit')

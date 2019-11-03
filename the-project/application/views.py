@@ -4,8 +4,8 @@ import secrets
 from flask import render_template,url_for, flash, redirect, request, abort, session
 from application import app,db
 
-from application.forms import UserRegistrationForm, UserLoginForm, AdoptionAddForm, ProductAddForm, UpdateAccountForm
-from application.models import Pet, User, Product
+from application.forms import UserRegistrationForm, UserLoginForm, AdoptionAddForm, ProductAddForm, UpdateAccountForm, MeetingAddForm
+from application.models import Pet, User, Product, PetRequest, Meeting
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from flask_login import login_user, current_user, logout_user, login_required
@@ -20,6 +20,8 @@ class adminModelView(ModelView):
 admin.add_view(adminModelView(Pet,db.session))
 admin.add_view(adminModelView(User,db.session))
 admin.add_view(adminModelView(Product,db.session))
+admin.add_view(adminModelView(PetRequest,db.session))
+admin.add_view(adminModelView(Meeting,db.session))
 
 @app.errorhandler(404)
 def page_not_found(error):
@@ -30,11 +32,9 @@ def page_not_found(error):
 @app.route('/home')
 
 def home():
-    #return render_template('home.html',posts=post)
     return render_template('home.html',title="Home")
 
 @app.route('/about')
-@login_required
 def about():
     return render_template('about.html',title="About")
 
@@ -76,7 +76,7 @@ def logout():
 def register():
     form  = UserRegistrationForm()
     if form.validate_on_submit():
-        user = User(username = form.username.data, firstName=form.firstName.data,lastName=form.lastName.data,email=form.email.data,password=form.password.data)
+        user = User(username = form.username.data, firstName=form.firstName.data,lastName=form.lastName.data,email=form.email.data,phone=form.phone.data,password=form.password.data)
         db.session.add(user)
         db.session.commit()
         login_user(user)
@@ -90,7 +90,6 @@ def login():
     form  = UserLoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
-        # show Austin how to debug (form.data.password)
         if user and (user.password == form.password.data):
             login_user(user)
             flash(f'Logged in {user.firstName} {user.lastName}!','success') #put in layout template that the flash messages show
@@ -114,13 +113,19 @@ def myaccount():
             picture_file = save_pictureUser(form.picture.data)
             current_user.userPic = picture_file
         current_user.username = form.username.data
+        current_user.firstName = form.firstName.data
+        current_user.lastName = form.lastName.data
         current_user.email = form.email.data
+        current_user.phone = form.phone.data
         db.session.commit()
         flash('Your account information was updated successfully!','success')
         return redirect(url_for('myaccount'))
     elif request.method == 'GET':
         form.username.data = current_user.username
+        form.firstName.data = current_user.firstName
+        form.lastName.data = current_user.lastName
         form.email.data = current_user.email
+        form.phone.data = current_user.phone
     return render_template('myAccount.html', title='My Account', form=form)
 
 
@@ -135,15 +140,30 @@ def save_picture(form_picture):
 
 @app.route("/adoptionAdd", methods=['GET','POST'])
 def adoptionAdd():
-    form = AdoptionAddForm()
-    if form.validate_on_submit():
-        if form.picture.data:
-            picture_file = save_picture(form.picture.data)
-            pet = Pet(petName=form.name.data,petType=form.type.data, petGender = form.gender.data, petBreed=form.breed.data, petAge=form.age.data, petWeight=form.weight.data, petImage=picture_file)
-        else:
-            pet = Pet(petName=form.name.data,petType=form.type.data, petGender = form.gender.data, petBreed=form.breed.data, petAge=form.age.data, petWeight=form.weight.data)
-        db.session.add(pet)
-        db.session.commit()
-        flash(f'Application Has Been Sent for {form.name.data}!','success')
-        return redirect(url_for('adoptionAdd'))
-    return render_template('adoptionAdd.html',title='Add Pet', form=form)
+    if(current_user.is_authenticated):
+        form = AdoptionAddForm()
+        if form.validate_on_submit() and form.submit.data:
+            if form.picture.data:
+                picture_file = save_picture(form.picture.data)
+                request = PetRequest(petName=form.name.data,petType=form.type.data,petGender = form.gender.data, petBreed=form.breed.data,petAge=form.age.data,petDesc=form.description.data,petContactName=current_user.firstName,petContactLast=current_user.lastName,petContactEmail=current_user.email,petContactPhone=current_user.phone,petImage=picture_file)
+            else:
+                request = PetRequest(petName=form.name.data,petType=form.type.data,petGender = form.gender.data, petBreed=form.breed.data,petAge=form.age.data,petDesc=form.description.data,petContactName=current_user.firstName,petContactLast=current_user.lastName,petContactEmail=current_user.email,petContactPhone=current_user.phone)
+            db.session.add(request)
+            db.session.commit()
+            return render_template('confirm.html')
+        return render_template('adoptionAdd.html',title='Add Pet', form=form)
+    else:
+        return render_template('requestLogin.html',title="Please Log In")
+
+@app.route("/meetingAdd", methods=['GET','POST'])
+def meetingAdd():
+    if(current_user.is_authenticated):
+        form = MeetingAddForm()
+        if form.validate_on_submit() and form.submit.data:
+            meeting = Meeting(meetingName=current_user.firstName,meetingDate=form.date.data,meetingEmail=current_user.email,meetingPhone=current_user.phone,meetings=meetings)
+            db.session.add(meeting)
+            db.session.commit()
+            return render_template('confirm.html')
+        return render_template('meetingAdd.html',title='Set Up A Meeting', form=form)
+    else:
+        return render_template('requestLogin.html',title="Please Log In")
