@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class ="content-section">
+      <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="">Set Up a Meeting</legend>
+            <div class="form-group">
+              {{  form.date.label(class="form-control-label") }}
+              {{  form.date(class="form-control form-control-sm") }}
+            </div>
+          </fieldset>
+          <div class="fom-group">
+            {{ form.submit(class="btn btn-dark btn-sm") }}
+          </div>
+        </form>
+      </div>
+
+
+
+      <div class="border-top pt-3">
+        </div>
+
+        <h1>Meeting Calendar</h1>
+
+
+
+
+        <table class="table table-bordered table-warning" style="width:0%">
+
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for meeting in meetings %}
+          <tr>
+            <td>{{ meeting.meetingName }}</td>
+            <td>{{ meeting.meetingDate }}</td>
+          </tr>
+          {% endfor %}
+          </tbody>
+
+        </table>
+
+
+
+{% endblock content %}

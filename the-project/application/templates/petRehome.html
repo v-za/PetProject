@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class ="content-section">
+      <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="">Apply to Rehome a Pet at Our Shelter</legend>
+            <div class="form-group">
+              {{  form.petName.label(class="form-control-label") }}
+              {{  form.petName(class="form-control form-control-sm") }}
+            </div>
+            <div class="form-group">
+                {{  form.petType.label(class="form-control-label") }}
+                {{  form.petType(class="form-control form-control-sm") }}
+            </div>
+            <div class="form-group">
+                {{  form.petAge.label(class="form-control-label") }}
+                {{  form.petAge(class="form-control form-control-sm") }}
+            </div>
+            <div class="form-group">
+                {{  form.petDesc.label(class="form-control-label") }}
+                {{  form.petDesc(class="form-control form-control-sm") }}
+            </div>
+          </fieldset>
+          <div class="fom-group">
+            {{ form.submit(class="btn btn-dark btn-sm") }}
+          </div>
+		  <legend class="">Note: We will want to meet with you in person to get veterinary records and meet your pet. Please have this info ready if possible.</legend>
+        </form>
+      </div>
+
+{% endblock content %}

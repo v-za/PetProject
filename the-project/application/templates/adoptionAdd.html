@@ -3,138 +3,130 @@
 
 
 {% block content %}
-
     <div class ="content-section">
       <form method="POST" action="" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
         <fieldset class="form-group">
-            <legend class="bg-light text-dark">Relinquish Your Pet </legend>
-            <div class="container">
-              <div class="row justify-content-center align-items-center">
-                <div class="col-lg-4">
-                  <div class="form-group">
-                    {{  form.name.label(class="form-control-label") }}
-                      {% if form.name.errors %}
-                        {{  form.name(class="form-control form-control-sm is-invalid") }}
-                        <div class="invalid-feedback">
-                          {% for error in form.name.errors %}
-                            <span>{{ error }}</span>
-                            {% endfor %}
-                          </div>
-
-                      {% else %}
-                        {{  form.name(class="form-control form-control-sm") }}
-                      {% endif %}
-                  </div>
-                </div>
-
-                <div class="col-lg-4">
-                  <div class="form-group">
-                    {{  form.type.label(class="form-control-label") }}
-                      {% if form.type.errors %}
-                        {{  form.type(class="form-control form-control-sm is-invalid") }}
-                        <div class="invalid-feedback">
-                          {% for error in form.type.errors %}
-                            <span>{{ error }}</span>
-                            {% endfor %}
-                          </div>
-
-                      {% else %}
-                        {{  form.type(class="form-control form-control-sm") }}
-                      {% endif %}
-                  </div>
-                </div>
-              </div>
-
-              <div class="row justify-content-center align-items-center">
-                <div class="col-lg-4">
-                  <div class="form-group">
-                    {{  form.breed.label(class="form-control-label") }}
-                      {% if form.breed.errors %}
-                        {{  form.breed(class="form-control form-control-sm is-invalid") }}
-                        <div class="invalid-feedback">
-                          {% for error in form.breed.errors %}
-                            <span>{{ error }}</span>
-                            {% endfor %}
-                          </div>
-                      {% else %}
-                        {{  form.breed(class="form-control form-control-sm") }}
-                      {% endif %}
-                  </div>
-                </div>
-
-                <div class="col-lg-4">
-                  <div class="form-group">
-                      {{  form.gender.label(class="form-control-label") }}
-                        {% if form.gender.errors %}
-                          {{  form.gender(class="form-control form-control-sm is-invalid") }}
-                          <div class="invalid-feedback">
-                            {% for error in form.age.errors %}
-                              <span>{{ error }}</span>
-                              {% endfor %}
-                            </div>
-                        {% else %}
-                          {{  form.gender(class="form-control form-control-sm") }}
-                        {% endif %}
-
-                  </div>
-                </div>
-              </div>
-
-              <div class="row justify-content-center align-items-center">
-                <div class="col-lg-4">
-                  <div class="form-group">
-                    {{  form.age.label(class="form-control-label") }}
-                      {% if form.age.errors %}
-                        {{  form.age(class="form-control form-control-sm is-invalid") }}
-                        <div class="invalid-feedback">
-                          {% for error in form.age.errors %}
-                            <span>{{ error }}</span>
-                            {% endfor %}
-                          </div>
-                      {% else %}
-                        {{  form.age(class="form-control form-control-sm") }}
-                      {% endif %}
-                  </div>
-                </div>
-
-                <div class="col-lg-4">
-                  <div class="form-group">
-                      {{  form.weight.label(class="form-control-label") }}
-                        {% if form.weight.errors %}
-                          {{  form.weight(class="form-control form-control-sm is-invalid") }}
-                          <div class="invalid-feedback">
-                            {% for error in form.weight.errors %}
-                              <span>{{ error }}</span>
-                              {% endfor %}
-                            </div>
-                        {% else %}
-                          {{  form.weight(class="form-control form-control-sm") }}
-                        {% endif %}
-
-                  </div>
-                </div>
-              </div>
-              <div class="row justify-content-center align-items-center">
-                <div class="col-lg-4">
-                  <div class="form-group">
-                    {{ form.picture.label }}<br>
-                    {{ form.picture(class="file-control-file") }}
-                    {% if form.picture.errors %}
-                      {% for error in form.picture.errors %}
-                        <span class="text-danger">{{ error }}</span><br>
+            <legend class="bg-light text-dark">Sometimes you just can't afford to keep your pet. We're here to help.</legend>
+            <legend class="bg-light text-dark">Fill in this form as best as you can and we will take your pet into custody and find it a new, caring home. </legend>
+            <div class="form-group">
+              {{  form.name.label(class="form-control-label") }}
+                {% if form.name.errors %}
+                  {{  form.name(class="form-control form-control-sm is-invalid") }}
+                  <div class="invalid-feedback">
+                    {% for error in form.name.errors %}
+                      <span>{{ error }}</span>
                       {% endfor %}
-                    {% endif %}
-                  </div>
-                </div>
-                <div class="col-lg-4">
-                  <div class="form-group">
-                    {{ form.submit(class="btn btn-outline-warning btn-lg") }}
-                  </div>
-                </div>
+                    </div>
+
+                {% else %}
+                  {{  form.name(class="form-control form-control-sm") }}
+                {% endif %}
+
+
+
+            </div>
+            <div class="form-group">
+
+              {{  form.type.label(class="form-control-label") }}
+                {% if form.type.errors %}
+                  {{  form.type(class="form-control form-control-sm is-invalid") }}
+                  <div class="invalid-feedback">
+                    {% for error in form.type.errors %}
+                      <span>{{ error }}</span>
+                      {% endfor %}
+                    </div>
+
+                {% else %}
+                  {{  form.type(class="form-control form-control-sm") }}
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+              {{  form.breed.label(class="form-control-label") }}
+
+                {% if form.breed.errors %}
+                  {{  form.breed(class="form-control form-control-sm is-invalid") }}
+                  <div class="invalid-feedback">
+                    {% for error in form.breed.errors %}
+                      <span>{{ error }}</span>
+                      {% endfor %}
+                    </div>
+
+                {% else %}
+                  {{  form.breed(class="form-control form-control-sm") }}
+                {% endif %}
+
+
+            </div>
+
+            <div class="form-group">
+                {{  form.gender.label(class="form-control-label") }}
+
+                  {% if form.gender.errors %}
+                    {{  form.gender(class="form-control form-control-sm is-invalid") }}
+                    <div class="invalid-feedback">
+                      {% for error in form.age.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                      </div>
+
+                  {% else %}
+                    {{  form.gender(class="form-control form-control-sm") }}
+                  {% endif %}
+
               </div>
+
+            <div class="form-group">
+                {{  form.age.label(class="form-control-label") }}
+
+
+                  {% if form.age.errors %}
+                    {{  form.age(class="form-control form-control-sm is-invalid") }}
+                    <div class="invalid-feedback">
+                      {% for error in form.age.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                      </div>
+
+                  {% else %}
+                    {{  form.age(class="form-control form-control-sm") }}
+                  {% endif %}
+
+              </div>
+
+
+            <div class="form-group">
+                {{  form.description.label(class="form-control-label") }}
+
+
+                  {% if form.description.errors %}
+                    {{  form.description(class="form-control form-control-sm is-invalid") }}
+                    <div class="invalid-feedback">
+                      {% for error in form.description.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                      </div>
+
+                  {% else %}
+                    {{  form.description(class="form-control form-control-sm") }}
+                  {% endif %}
+
+              </div>
+			  
+            <div class="form-group">
+              {{ form.picture.label }}<br>
+              {{ form.picture(class="file-control-file") }}
+              {% if form.picture.errors %}
+                {% for error in form.picture.errors %}
+                  <span class="text-danger">{{ error }}</span><br>
+                {% endfor %}
+              {% endif %}
             </div>
           </fieldset>
+          <div class="form-group">
+            {{ form.submit(class="btn btn-outline-warning btn-sm") }}
+          </div>
         </form>
       </div>
       <div class="border-top pt-3">
