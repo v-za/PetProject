@@ -10,14 +10,17 @@ def load_user(user_id):
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(20),nullable=False)
+    username = db.Column(db.String(40),nullable=False)
+    firstName = db.Column(db.String(20),nullable=False)
+    lastName = db.Column(db.String(20), nullable=False)
     email = db.Column(db.String(50),unique=True, nullable=False)
-    phone = db.Column(db.String(50),unique=True, nullable=False)
+    phone = db.Column(db.Integer,nullable=False)
     password = db.Column(db.String(50),nullable=False)
+    userPic = db.Column(db.String(20), nullable=False, default='default.png')
 
 
     def __repr__(self):
-        return f"User('{self.name}', '{self.email}', '{self.phone}')"
+        return f"User('{self.firstName}', '{self.secondName}', '{self.email}')"
 
 
 
@@ -29,7 +32,7 @@ class Pet(db.Model):
     petBreed = db.Column(db.String(20),nullable=False)
     petAge = db.Column(db.Integer,nullable=False)
     petWeight = db.Column(db.Integer,nullable=False)
-    petImage = db.Column(db.String(20), nullable=False, default='default.jpg')
+    petImage = db.Column(db.String(20), nullable=False)
 
 #method for how our object is printed when printeed out
     def __repr__(self):
@@ -42,7 +45,9 @@ class PetRequest(db.Model):
     petGender = db.Column(db.String(6))
     petBreed = db.Column(db.String(20))
     petAge = db.Column(db.Integer)
-    petContactName = db.Column(db.String(80),nullable=False)
+    petWeight = db.Column(db.Integer,nullable=False)
+    petContactFirstName = db.Column(db.String(80),nullable=False)
+    petContactLastName = db.Column(db.String(80),nullable=False)
     petContactEmail = db.Column(db.String(80),nullable=False)
     petContactPhone = db.Column(db.String(80),nullable=False)
     petImage = db.Column(db.String(20), nullable=False, default='default.jpg')
@@ -51,24 +56,30 @@ class PetRequest(db.Model):
     def __repr__(self):
         return f"PetRequest('{self.petName}','{self.petType}','{self.petContact}')"
 
+
 class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     productName = db.Column(db.String(40),nullable=False)
     productType = db.Column(db.String(20),nullable=False)
-    productDesc = db.Column(db.String(400),nullable=False)
-    productPrice = db.Column(db.Integer,nullable=False)
+    productDesc = db.Column(db.Text,nullable=False)
+    productPrice = db.Column(db.Numeric(5,2),nullable=False)
     productInStock = db.Column(db.Integer,nullable=False)
-    #productImage =
+    productImage = db.Column(db.String(20), nullable=False, default = 'default.jpg')
 
 #method for how our object is printed when printeed out
     def __repr__(self):
-        return f"Product('{self.productName}','{self.productType}','{self.productAge}')"
+        return f"Product('{self.productName}','{self.productType}')"
 
 class Meeting(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    meetingName = db.Column(db.String(40),nullable=False)
+    meetingFirstName = db.Column(db.String(40),nullable=False)
+    meetingLastName = db.Column(db.String(40),nullable=False)
     meetingDate = db.Column(db.String(40),nullable=False)
     meetingEmail = db.Column(db.String(50),nullable=False)
     meetingPhone = db.Column(db.String(50),nullable=False)
 
+    def __repr__(self):
+        return f"Product('{self.meetingName}','{self.meetingDate}')"
+
+#db.drop_all()
 db.create_all()

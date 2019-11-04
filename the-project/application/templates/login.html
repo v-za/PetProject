@@ -1,42 +1,42 @@
 {% extends "layout.html" %}
-
-
-
 {% block content %}
     <div class ="content-section ">
-      <form method="POST" action="">
-        {{ form.hidden_tag() }}
-        <legend class="bg-light text-dark">Sign In!</legend>
+      <fieldset>
+        <form method="POST" action="">
+          {{ form.hidden_tag() }}
+          <legend class="bg-light text-dark">Sign In!</legend>
 
-        <div class="form-group col-md-3 ">
-          {{  form.email.label(class="form-control-label center") }}
+          <div class="row justify-content-center align-items-center">
+            <div class="form-group col-lg-4">
+              {{  form.email.label(class="form-control-label center") }}
+                {% if form.email.errors %}
+                  {{  form.email(class="form-control form-control-sm  is-invalid") }}
+                  <div class="invalid-feedback">
+                    {% for error in form.email.errors %}
+                      <span>{{ error }}</span>
+                      {% endfor %}
+                    </div>
 
-            {% if form.email.errors %}
-              {{  form.email(class="form-control form-control-sm  is-invalid") }}
-              <div class="invalid-feedback">
-                {% for error in form.email.errors %}
-                  <span>{{ error }}</span>
-                  {% endfor %}
-                </div>
+                {% else %}
+                  {{  form.email(class="form-control form-control-sm") }}
+                {% endif %}
+            </div>
+          </div>
 
-            {% else %}
-              {{  form.email(class="form-control form-control-sm") }}
-            {% endif %}
+          <div class="row justify-content-center align-items-center">
+            <div class="form-group col-lg-4">
+                {{  form.password.label(class="form-control-label") }}
+                {{  form.password(class="form-control form-control-sm") }}
+            </div>
+          </div>
 
-
-        </div>
-        <div class="form-group col-md-3">
-            {{  form.password.label(class="form-control-label") }}
-            {{  form.password(class="form-control form-control-sm") }}
-        </div>
-
-      </fieldset>
-      <div class="form-group col-md-3">
-        {{ form.submit(class="btn btn-outline-success btn-sm") }}
-      </div>
-
-
-        </form>
+          <div class="row justify-content-center align-items-center">
+            <div class="form-group col-lg-4">
+              {{ form.submit(class="btn btn-outline-success btn-lg") }}
+            </div>
+          </div>
+          </form>
+        </fieldset>
       </div>
 
 

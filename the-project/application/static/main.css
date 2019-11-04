@@ -36,20 +36,64 @@ body {
   background-size: cover;
 }
 
-.section2 {
-  background:
-    /* top, transparent red, faked with gradient */
-    linear-gradient(
-      rgba(0, 0, 0, 0.5),
-      rgba(0, 0, 0, 0.5)
-    ),
-    /* bottom, image */
-    url(../static/images/cat-dark.jpg);
+.mastheadDog {
+  height: 5vh;
+  min-height: 270px;
+  background-image: url(../static/images/dogHeader.jpg);
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+.mastheadCat {
+  height: 5vh;
+  min-height: 270px;
+  background-image: url(../static/images/catHeader.jpg);
+  background-attachment: fixed;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.mastheadFish {
+  height: 5vh;
+  min-height: 270px;
+  background-image: url(../static/images/fishHeader.jpg);
+  background-attachment: fixed;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.mastheadBird {
+  height: 5vh;
+  min-height: 270px;
+  background-image: url(../static/images/birdHeader.jpg);
+  background-attachment: fixed;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.mastheadReptile {
+  height: 5vh;
+  min-height: 270px;
+  background-image: url(../static/images/reptileHeader.jpg);
+  background-attachment: fixed;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.mastheadSmallAnimal {
+  height: 5vh;
+  min-height: 270px;
+  background-image: url(../static/images/smallAnimalHeader.jpg);
+  background-attachment: fixed;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 
@@ -84,7 +128,7 @@ background: linear-gradient(90deg, rgba(217,232,245,1) 25%, rgba(255,255,255,1) 
       rgba(0, 0, 0, 0.5)
     ),
     /* bottom, image */
-    url(../static/images/cat-dark.jpg);
+    /*url(../static/images/light-brown-cat.jpg);*/
 
     background-attachment: fixed;
     background-position: center;
@@ -160,6 +204,20 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .adoptInfoImage {
-  width:  300px;
-  height: 300px;
+  width:  800px;
+  height: 400px;
+}
+
+.adoptText {
+  font-family: "Arial Black", "Arial Bold";
+  font-size: 24px;
+}
+
+.alternate {
+  background-color: red;
+}
+
+.box {
+   display: flex;
+   align-items:center;
 }
