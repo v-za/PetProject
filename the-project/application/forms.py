@@ -13,6 +13,7 @@ class UserRegistrationForm(FlaskForm):
     firstName = StringField('First Name', validators=[DataRequired()])          #other arguments are constraints
     lastName = StringField('Last Name', validators=[DataRequired()])
     email = StringField('Email',validators=[DataRequired(),Email()])
+    phone = StringField('Phone Number',validators=[DataRequired()])
     password = PasswordField('Password',validators=[DataRequired(message="Please Enter a Password")])
     confirm_password = PasswordField('Confirm Password',validators=[DataRequired(),EqualTo('password')])
     submit = SubmitField('Sign Up')
@@ -42,8 +43,12 @@ class AdoptionAddForm(FlaskForm):
     gender = StringField('Pet Gender',validators=[DataRequired()])
     age = IntegerField('Pet Age',validators=[DataRequired()])
     weight = IntegerField('Pet Weight',validators=[DataRequired()])
+    contactFirstName = StringField('Contact Name',validators=[DataRequired()])
+    contactLastName = StringField('Contact Name',validators=[DataRequired()])
+    contactEmail = StringField('Contact Email',validators=[DataRequired(), Email()])
+    contactPhone = StringField('Contact Phone',validators=[DataRequired()])
     #description = TextField('Pet Description', validators=[DataRequired()])
-    picture = FileField('Profile Picture', validators=[FileAllowed(['jpg','png'])])
+    picture = FileField('Profile Picture', validators=[DataRequired(), FileAllowed(['jpg','png'])])
     submit = SubmitField('Send Request')
 
 class ProductAddForm(FlaskForm):
@@ -72,3 +77,8 @@ class UpdateAccountForm(FlaskForm):
             user = User.query.filter_by(email=email.data).first()
             if user:
                 raise ValidationError("This email is taken. Please choose another one.")
+
+
+class MeetingAddForm(FlaskForm):
+    date = StringField('What date do you want to visit? Check the list below for dates already taken.', validators=[DataRequired()])
+    submit = SubmitField('Submit')

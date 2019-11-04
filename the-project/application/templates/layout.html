@@ -60,6 +60,9 @@
               <li class="nav-item">
                 <a class="nav-link" href="{{url_for('adoptionAdd')}}">Add Pet</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{url_for('meetingAdd')}}">Schedule An Appointment</a>
+              </li>
               {% if current_user.is_authenticated %}
               <li class="nav-item dropdown ">
                 <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"> {{ current_user.firstName }} </a>
