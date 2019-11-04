@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+
+<header class="masthead2">
+  <div class="container h-100">
+    <div class="row h-100 align-items-center">
+        <div class="col-lg-4">
+          <img src="../static/product_pics/{{product.productImage}}" class="adoptInfoImage img-fluid" alt="{{product.productName}}">
+        </div>
+        <div class="col-lg-4">
+            <h2>{{product.productName}}</h2>
+            <p>${{product.productPrice}}</p>
+        </div>
+    </div>
+  </div>
+</header>
+
+{% endblock %}

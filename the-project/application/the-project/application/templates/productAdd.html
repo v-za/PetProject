@@ -1,0 +1,127 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class ="content-section">
+  <form method="POST" action="">
+    {{ form.hidden_tag() }}
+    <fieldset class="form-group">
+        <legend class="bg-light text-dark">Create an Account!</legend>
+        <div class="container">
+          <div class="row justify-content-center align-items-center">
+            <div class="col-lg-4">
+              <div class="form-group">
+                {{  form.productName.label(class="form-control-label") }}
+                  {% if form.productName.errors %}
+                    {{  form.productName(class="form-control form-control-sm is-invalid") }}
+                    <div class="invalid-feedback">
+                      {% for error in form.productName.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                      </div>
+
+                  {% else %}
+                    {{  form.productName(class="form-control form-control-sm") }}
+                  {% endif %}
+              </div>
+            </div>
+
+            <div class="col-lg-4">
+              <div class="form-group">
+                {{  form.productType.label(class="form-control-label") }}
+
+                  {% if form.productType.errors %}
+                    {{  form.productType(class="form-control form-control-sm is-invalid") }}
+                    <div class="invalid-feedback">
+                      {% for error in form.productType.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                      </div>
+
+                  {% else %}
+                    {{  form.productType(class="form-control form-control-sm") }}
+                  {% endif %}
+              </div>
+            </div>
+          </div>
+
+          <div class="row justify-content-center align-items-center">
+            <div class="col-lg-4">
+              <div class="form-group">
+                {{  form.productDesc.label(class="form-control-label") }}
+                  {% if form.productDesc.errors %}
+                    {{  form.productDesc(class="form-control form-control-sm is-invalid") }}
+                    <div class="invalid-feedback">
+                      {% for error in form.productDesc.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                      </div>
+
+                  {% else %}
+                    {{  form.productDesc(class="form-control form-control-sm") }}
+                  {% endif %}
+              </div>
+            </div>
+
+            <div class="col-lg-4">
+              <div class="form-group">
+                {{  form.productPrice.label(class="form-control-label") }}
+                  {% if form.productPrice.errors %}
+                    {{  form.productPrice(class="form-control form-control-sm is-invalid") }}
+                    <div class="invalid-feedback">
+                      {% for error in form.productPrice.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                      </div>
+
+                  {% else %}
+                    {{  form.productPrice(class="form-control form-control-sm") }}
+                  {% endif %}
+              </div>
+            </div>
+          </div>
+
+          <div class="row justify-content-center align-items-center">
+            <div class="col-lg-2">
+              <div class="form-group">
+                  {{  form.productInStock.label(class="form-control-label") }}
+                    {% if form.productInStock.errors %}
+                      {{  form.productInStock(class="form-control form-control-sm is-invalid") }}
+                      <div class="invalid-feedback">
+                        {% for error in form.productInStock.errors %}
+                          <span>{{ error }}</span>
+                          {% endfor %}
+                        </div>
+
+                    {% else %}
+                      {{  form.productInStock(class="form-control form-control-sm") }}
+                    {% endif %}
+
+                </div>
+            </div>
+          </div>
+
+          <div class="row justify-content-center align-items-center">
+            <div class="col-lg-4">
+              <div class="form-group">
+                {{ form.productImage.label }}<br>
+                {{ form.productImage(class="file-control-file") }}
+                {% if form.productImage.errors %}
+                  {% for error in form.productImage.errors %}
+                    <span class="text-danger">{{ error }}</span><br>
+                  {% endfor %}
+                {% endif %}
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="form-group">
+                {{ form.submit(class="btn btn-outline-warning btn-lg") }}
+              </div>
+            </div>
+          </div>
+      </div>
+      </fieldset>
+    </form>
+  </div>
+  <div class="border-top pt-3">
+    </div>
+{% endblock %}
