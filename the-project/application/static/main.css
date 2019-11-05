@@ -110,6 +110,16 @@ body {
   background-size: cover;
 }
 
+.mastheadAll {
+  height: 5vh;
+  min-height: 270px;
+  background-image: url(../static/images/allPetsHeader.jpg);
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 
 #section1 {
 background: rgb(217,232,245);

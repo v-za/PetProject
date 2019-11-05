@@ -52,6 +52,10 @@ class adminHomeView(AdminIndexView):
 
 class adminModelView(ModelView):
 
+    create_modal = True
+    edit_modal = True
+
+
     def is_accessible(self):
 
         if current_user.is_authenticated and current_user.userRole=="admin":
