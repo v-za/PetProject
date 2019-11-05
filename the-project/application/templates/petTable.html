@@ -76,13 +76,13 @@
             <a href="#" data-toggle="modal" data-target="#myModal">
               <img src="../static/animal_pics/{{pet.petImage}}" class="rounded-circle pet-image shadow-lg img-fluid" alt="Animal" width="150">
             </a>
-              <button type="button" class="btn btn-primary mt-2" data-toggle="modal" data-target="#myModal">
+              <button type="button" class="btn btn-primary mt-2" data-toggle="modal" data-target="#myModal{{pet.id}}">
                 Meet {{pet.petName}}
               </button>
           </div>
 
           <!-- The Modal -->
-      <div class="modal" id="myModal">
+      <div class="modal" id="myModal{{pet.id}}">
         <div class="modal-dialog">
           <div class="modal-content">
 
