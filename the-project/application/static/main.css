@@ -7,6 +7,16 @@ body {
   background-color: #F26101;
 }
 
+.border-warning{
+  border-color: #F26101;
+  border-width: thick;
+}
+
+.btn-primary {
+  border-color: #F26101;
+  background-color: #F26101;
+}
+
 .dropdown:hover > .dropdown-menu {
     display: block;
 }

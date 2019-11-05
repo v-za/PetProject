@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+
+
+{% block content %}
+
+
+<div class="container mt-5 mb-5">
+  <table class="table">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">Pet Name</th>
+        <th scope="col">Pet Breed</th>
+        <th scope="col">Pet Gender</th>
+        <th scope="col">Pet Weight</th>
+        <th scope="col">Pet Image</th>
+        <th scope="col">Pet Document</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for pet in pets %}
+      <tr>
+        <td>{{pet.petName}}</td>
+        <td>{{pet.petBreed}}</td>
+        <td>{{pet.petGender}}</td>
+        <td>{{pet.petWeight}}</td>
+        <td><img src="../static/animal_pics/{{pet.petImage}}" alt="" width="100"></td>
+        <td><img src="../static/document_files/{{pet.petDocument}}" alt="" width="100"></td>
+        <td><button type="button" name="button" class="btn btn-primary">Approve</button></td>
+        <td><button type="button" name="button" class="btn btn-danger">Disapprove</button></td>
+      </tr>
+      {% endfor %}
+  </table>
+</div>
+
+
+
+
+
+{% endblock %}
