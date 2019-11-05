@@ -3,8 +3,6 @@ from application import db, login_manager
 from flask_login import UserMixin
 
 
-
-
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
@@ -54,6 +52,7 @@ class PetRequest(db.Model):
     petContactEmail = db.Column(db.String(80),nullable=False)
     petContactPhone = db.Column(db.String(80),nullable=False)
     petImage = db.Column(db.String(20), nullable=False, default='default.jpg')
+    petDocument = db.Column(db.String(20), nullable=False)
 
 #method for how our object is printed when printeed out
     def __repr__(self):

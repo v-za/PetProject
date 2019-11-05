@@ -4,13 +4,13 @@ import secrets
 from flask import render_template, url_for, flash, redirect, request, abort, session
 from application import app, db,login_manager,bcrypt
 
-from application.forms import UserRegistrationForm, UserLoginForm, AdoptionAddForm, ProductAddForm, UpdateAccountForm, MeetingAddForm, UpdateAccountFormUsername, UpdateAccountFormEmail, UpdateAccountFormPicture
+from application.forms import UserRegistrationForm, UserLoginForm, AdoptionAddForm, ProductAddForm, UpdateAccountForm
+from application.forms import MeetingAddForm, UpdateAccountFormUsername, UpdateAccountFormEmail, UpdateAccountFormPicture
 from application.models import Pet, User, Product, PetRequest, Meeting
 from flask_admin import Admin, AdminIndexView, BaseView, expose
 from flask_admin.contrib.sqla import ModelView
 from flask_login import login_user, current_user, logout_user, login_required
 from functools import wraps
-
 
 
 ## ADMIN VIEWS ####
@@ -151,7 +151,6 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         # show Austin how to debug (form.data.password)
-
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user)
             # put in layout template that the flash messages show
@@ -197,6 +196,14 @@ def save_picture(form_picture):
     form_picture.save(picture_path)
     return picture_fn
 
+def save_document(form_document):
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_document.filename)
+    picture_fn = random_hex + f_ext
+    picture_path = os.path.join(
+        app.root_path, 'static/document_files', picture_fn)
+    form_document.save(picture_path)
+    return picture_fn
 
 @app.route("/adoptionAdd", methods=['GET', 'POST'])
 def adoptionAdd():
@@ -204,8 +211,11 @@ def adoptionAdd():
     if(current_user.is_authenticated):
         if form.validate_on_submit():
             picture_file = save_picture(form.picture.data)
-            pet = PetRequest(petName=form.name.data, petType=dict(form.type.choices).get(form.type.data), petGender=dict(form.gender.choices).get(form.gender.data), petBreed=form.breed.data, petAge=form.age.data, petWeight=form.weight.data,
-                             petContactFirstName=form.contactFirstName.data, petContactLastName=form.contactLastName.data, petContactEmail=form.contactEmail.data, petContactPhone=form.contactPhone.data, petImage=picture_file)
+            document_file = save_document(form.document.data)
+            pet = PetRequest(petName=form.name.data, petType=dict(form.type.choices).get(form.type.data),
+			                 petGender=dict(form.gender.choices).get(form.gender.data), petBreed=form.breed.data, petAge=form.age.data,
+			                 petWeight=form.weight.data, petContactFirstName=form.contactFirstName.data, petContactLastName=form.contactLastName.data,
+			                 petContactEmail=form.contactEmail.data, petContactPhone=form.contactPhone.data, petImage=picture_file, petDocument=document_file)
             db.session.add(pet)
             db.session.commit()
             flash(f'Application Has Been Sent for {form.name.data}!', 'success')
@@ -226,7 +236,8 @@ def meetingAdd():
         form = MeetingAddForm()
         meetings = Meeting.query.all()
         if form.validate_on_submit() and form.submit.data:
-            meeting = Meeting(meetingFirstName=current_user.firstName, meetingLastName=current_user.lastName,meetingDate=form.date.data, meetingEmail=current_user.email, meetingPhone=current_user.phone)
+            meeting = Meeting(meetingFirstName=current_user.firstName, meetingLastName=current_user.lastName,meetingDate=form.date.data,
+			                  meetingEmail=current_user.email, meetingPhone=current_user.phone)
             db.session.add(meeting)
             db.session.commit()
             return render_template('confirm.html')

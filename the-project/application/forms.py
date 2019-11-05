@@ -49,14 +49,15 @@ class AdoptionAddForm(FlaskForm):
     type = SelectField('Pet Type',choices=[('choice1','Dog'),('choice2','Cat'),('choice3','Bird'),('choice4','Reptile'),('choice5','Fish'),('choice6','Small-Animal')], validators=[DataRequired()])
     breed = StringField('Pet Breed',validators=[DataRequired()])
     gender = SelectField('Pet Gender',choices=[('choice1','Male'),('choice2','Female')], validators=[DataRequired()])
-    age = IntegerField('Pet Age',validators=[DataRequired()])
-    weight = IntegerField('Pet Weight',validators=[DataRequired()])
+    age = IntegerField('Pet Age',validators=[DataRequired(),NumberRange(min=0,max=100,message="This number is either too low or too high to be a realistic pet age.")])
+    weight = IntegerField('Pet Weight',validators=[DataRequired(),NumberRange(min=0,max=100,message="This number is either too low or too high to be a realistic pet age.")])
     contactFirstName = StringField('Contact First Name',validators=[DataRequired()])
     contactLastName = StringField('Contact Last Name',validators=[DataRequired()])
     contactEmail = StringField('Contact Email',validators=[DataRequired(), Email()])
     contactPhone = StringField('Contact Phone',validators=[DataRequired()])
     #description = TextField('Pet Description', validators=[DataRequired()])
-    picture = FileField('Profile Picture', validators=[DataRequired(), FileAllowed(['jpg','png'])])
+    picture = FileField('Pet Profile Picture', validators=[DataRequired(), FileAllowed(['jpg','png'])])
+    document = FileField('Document', validators=[DataRequired(), FileAllowed(['pdf'])])
     submit = SubmitField('Send Request')
 
 class ProductAddForm(FlaskForm):
@@ -73,8 +74,6 @@ class UpdateAccountForm(FlaskForm):
     email = StringField('Email',validators=[DataRequired(),Email()])
     picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg','jpeg','png'])])
     submit = SubmitField('Update')
-    
-
 
     def validate_username(self,username):
         if username.data != current_user.username:
@@ -87,7 +86,6 @@ class UpdateAccountForm(FlaskForm):
             user = User.query.filter_by(email=email.data).first()
             if user:
                 raise ValidationError("This email is taken. Please choose another one.")
-
 
 class UpdateAccountFormUsername(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20, message="Username must be between 2 and 20 characters.")])
