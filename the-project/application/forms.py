@@ -73,6 +73,8 @@ class UpdateAccountForm(FlaskForm):
     email = StringField('Email',validators=[DataRequired(),Email()])
     picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg','jpeg','png'])])
     submit = SubmitField('Update')
+    
+
 
     def validate_username(self,username):
         if username.data != current_user.username:
@@ -85,6 +87,7 @@ class UpdateAccountForm(FlaskForm):
             user = User.query.filter_by(email=email.data).first()
             if user:
                 raise ValidationError("This email is taken. Please choose another one.")
+
 
 class UpdateAccountFormUsername(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20, message="Username must be between 2 and 20 characters.")])
