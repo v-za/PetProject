@@ -53,7 +53,7 @@ class adminHomeView(AdminIndexView):
 class adminModelView(ModelView):
 
     def is_accessible(self):
-        
+
         if current_user.is_authenticated and current_user.userRole=="admin":
             return True
         else:
@@ -96,6 +96,17 @@ def about():
 def adopt(petType):
     pets = Pet.query.filter_by(petType=petType).all()
     return render_template('petTable.html', title=petType, pets=pets, pettype=petType)
+
+
+@app.route('/pets', methods=['GET', 'POST'])
+
+def pets():
+    pets = Pet.query.all()
+    list = []
+    if request.method == "POST":
+        list = request.form.getlist("Animal")
+        pets = Pet.query.filter(Pet.petType.in_(list)).all()
+    return render_template('allPets.html', title="Pets", pets=pets)
 
 
 @app.route('/shop', methods=['GET', 'POST'])
