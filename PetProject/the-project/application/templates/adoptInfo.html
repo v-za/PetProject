@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<header class="masthead2" id="section1">
+  <div class="container h-100">
+    <div class="row h-100 align-items-center">
+        <div class="col-lg-6">
+          <img src="../static/animal_pics/{{pet.petImage}}" class="adoptInfoImage img-fluid rounded" alt="{{pet.petName}}">
+        </div>
+          <div class="col-lg-6 pl-5">
+            <div class="row">
+              <h2>Breed - </h2>
+              <p class="ml-3 text-center adoptText">{{pet.petBreed}}</p>
+            </div>
+            <div class="row">
+              <h2>Gender - </h2>
+              <p class="ml-3 text-center adoptText">{{pet.petGender}}</p>
+            </div>
+            <div class="row">
+              <h2>Age - </h2>
+              <p class="ml-3 text-center adoptText">{{pet.petAge}}</p>
+            </div>
+            <div class="row">
+              <h2>Weight - </h2>
+              <p class="ml-3 text-center adoptText">{{pet.petWeight}}</p>
+            </div>
+          </div>
+    </div>
+  </div>
+</header>
+<div class="container mt-4 mb-4">
+  <div class="row justify-content-center align-items-center">
+    <div class="col-lg-8 box">
+      <img src="{{url_for('static', filename='animal_pics/' + pet.petImage)}}" alt="{{pet.petName}}" width="150" height="150" class="rounded-circle float-left mr-2">
+      <p>Meet {{pet.petName}} in person. Schedule an appointment today!</p>
+    </div>
+  </div>
+  <div class="row justify-content-center align-items-center">
+    <div class="col-lg-4">
+      <button type="button" name="button" class="btn btn-primary btn-lg">Schedule An Appointment</button>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

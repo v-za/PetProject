@@ -1,0 +1,192 @@
+<!-- This is the mother template.
+      baby templates will inherit just for titls sake
+      we don't want to repeat the code
+ -->
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}">
+
+
+    <meta charset="utf-8">
+
+      {%if title%}
+      <title>petProject - {{title}}</title>
+      {% else %}
+      <title>petProject</title><title>petProject </title>
+      {% endif %}
+  </head>
+    <header>
+      <nav class="navbar navbar-expand-md storeColor navbar-light justify-content-between">
+        <a class="navbar-brand" href="/home">Second Chance</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+          <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav ml-auto text-center">
+              <li class="nav-item">
+                <a class="nav-link" href="{{url_for('home')}}">Home</a>
+              </li>
+              <li class="nav-item dropdown ">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">Adopt</a>
+                  <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="/adopt/Dog">Dog</a>
+                    <a class="dropdown-item" href="/adopt/Cat">Cat</a>
+                    <a class="dropdown-item" href="/adopt/Fish">Fish</a>
+                    <a class="dropdown-item" href="/adopt/Bird">Bird</a>
+                    <a class="dropdown-item" href="/adopt/Reptile">Reptile</a>
+                    <a class="dropdown-item" href="/adopt/Small-Animal">Small Animals</a>
+                  </div>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{url_for('adoptionAdd')}}">Pet for Adoption</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{url_for('meetingAdd')}}">Schedule An Appointment</a>
+              </li>
+              {% if current_user.is_authenticated %}
+              <li class="nav-item dropdown ">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"> {{ current_user.firstName }} </a>
+                  <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="/myaccount">My Account</a>
+                    <a class="dropdown-item" href="/logout">Logout</a>
+                  </div>
+              </li>
+
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('login')}}"><button class="btn btn-info btn-sm" type="button" name="button">Login</button></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('register')}}"><button class="btn btn-success btn-sm" type="button" name="button">Sign-Up</button></a>
+            </li>
+            {% endif %}
+            </ul>
+          </div>
+        </nav>
+
+
+        {% with messages = get_flashed_messages(with_categories = true) %}
+          {% if messages%}
+            {% for category, message in messages %}
+            <div class="row justify-content-center align-self-center bg-white">
+              <div class="col-md-8 text-center">
+                <div class="alert alert-{{ category }}">
+                  {{ message }}
+                </div>
+                </div>
+                </div>
+                {% endfor %}
+              {%endif%}
+            {% endwith %}
+</header>
+
+<body>
+    {% block content %} {% endblock %}
+</body>
+
+    <!-- Footer -->
+<footer class="page-footer font-small storeColor pt-4">
+
+  <!-- Footer Links -->
+  <div class="container-fluid text-center text-md-left">
+
+    <!-- Grid row -->
+    <div class="row">
+
+      <!-- Grid column -->
+      <div class="col-md-6 mt-md-0 mt-3">
+
+        <!-- Content -->
+        <h5 class="text-uppercase">Falcon Store</h5>
+        <ul class="list-unstyled">
+          <li class="list-item">Phone: 123-456-7890</li>
+          <li class="list-item">Address: 2456 BestGroup Ln, Chicago, IL 60614 </li>
+        </ul>
+
+      </div>
+      <!-- Grid column -->
+
+      <hr class="clearfix w-100 d-md-none pb-3">
+
+      <!-- Grid column -->
+      <div class="col-md-3 mb-md-0 mb-3">
+
+        <!-- Links -->
+        <h5 class="text-uppercase">Pets</h5>
+
+        <ul class="list-unstyled">
+          <li>
+            <a href="/adopt/Dog">Dog</a>
+          </li>
+          <li>
+            <a href="/adopt/Cat">Cat</a>
+          </li>
+          <li>
+            <a href="/adopt/Fish">Fish</a>
+          </li>
+          <li>
+            <a href="/adopt/Reptile">Reptile</a>
+          </li>
+          <li>
+            <a href="/adopt/Bird">Bird</a>
+          </li>
+          <li>
+            <a href="/adopt/Small-Animal">Small Animals</a>
+          </li>
+        </ul>
+
+      </div>
+      <!-- Grid column -->
+
+      <!-- Grid column -->
+      <div class="col-md-3 mb-md-0 mb-3">
+
+        <!-- Links -->
+        <h5 class="text-uppercase">Quick Links</h5>
+
+        <ul class="list-unstyled">
+          <li>
+            <a href="{{url_for('home')}}">Home</a>
+          </li>
+          <li>
+            <a href="{{url_for('meetingAdd')}}">Schedule An Appointment</a>
+          </li>
+          <li>
+            <a href="{{url_for('adoptionAdd')}}">Add Pet</a>
+          </li>
+        </ul>
+
+      </div>
+      <!-- Grid column -->
+
+    </div>
+    <!-- Grid row -->
+
+  </div>
+  <!-- Footer Links -->
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© 2019 Copyright:
+    <a href="/home"> secondchance.com</a>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</html>
