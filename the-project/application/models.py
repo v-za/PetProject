@@ -15,8 +15,9 @@ class User(db.Model, UserMixin):
     lastName = db.Column(db.String(20), nullable=False)
     email = db.Column(db.String(50),unique=True, nullable=False)
     phone = db.Column(db.Integer,nullable=False)
-    password = db.Column(db.String(50),nullable=False)
+    password = db.Column(db.String(200),nullable=False)
     userPic = db.Column(db.String(20), nullable=False, default='default.png')
+    userRole = db.Column(db.String(20), default='customer')
 
 
     def __repr__(self):
@@ -51,6 +52,7 @@ class PetRequest(db.Model):
     petContactEmail = db.Column(db.String(80),nullable=False)
     petContactPhone = db.Column(db.String(80),nullable=False)
     petImage = db.Column(db.String(20), nullable=False, default='default.jpg')
+    petDocument = db.Column(db.String(20), nullable=False)
 
 #method for how our object is printed when printeed out
     def __repr__(self):

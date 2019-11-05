@@ -25,7 +25,7 @@
   </head>
     <header>
       <nav class="navbar navbar-expand-md storeColor navbar-light justify-content-between">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="/home">Second Chance</a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
           <span class="navbar-toggler-icon"></span>
@@ -35,9 +35,6 @@
             <ul class="navbar-nav ml-auto text-center">
               <li class="nav-item">
                 <a class="nav-link" href="{{url_for('home')}}">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{{url_for('about')}}">About</a>
               </li>
               <li class="nav-item dropdown ">
                 <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">Adopt</a>
@@ -51,10 +48,7 @@
                   </div>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/shop">Shop</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{{url_for('adoptionAdd')}}">Add Pet</a>
+                <a class="nav-link" href="{{url_for('adoptionAdd')}}">Rehome a Pet</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{{url_for('meetingAdd')}}">Schedule An Appointment</a>
@@ -70,7 +64,7 @@
 
             {% else %}
             <li class="nav-item">
-              <a class="nav-link" href="{{url_for('login')}}"><button class="btn btn-warning btn-sm" type="button" name="button">Login</button></a>
+              <a class="nav-link" href="{{url_for('login')}}"><button class="btn btn-info btn-sm" type="button" name="button">Login</button></a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{url_for('register')}}"><button class="btn btn-success btn-sm" type="button" name="button">Sign-Up</button></a>
@@ -84,7 +78,7 @@
         {% with messages = get_flashed_messages(with_categories = true) %}
           {% if messages%}
             {% for category, message in messages %}
-            <div class="row justify-content-center align-self-center">
+            <div class="row justify-content-center align-self-center bg-white">
               <div class="col-md-8 text-center">
                 <div class="alert alert-{{ category }}">
                   {{ message }}
@@ -132,22 +126,22 @@
 
         <ul class="list-unstyled">
           <li>
-            <a href="#!">Dog</a>
+            <a href="/adopt/Dog">Dog</a>
           </li>
           <li>
-            <a href="#!">Cat</a>
+            <a href="/adopt/Cat">Cat</a>
           </li>
           <li>
-            <a href="#!">Fish</a>
+            <a href="/adopt/Fish">Fish</a>
           </li>
           <li>
-            <a href="#!">Reptile</a>
+            <a href="/adopt/Reptile">Reptile</a>
           </li>
           <li>
-            <a href="#!">Bird</a>
+            <a href="/adopt/Bird">Bird</a>
           </li>
           <li>
-            <a href="#!">Small Animals</a>
+            <a href="/adopt/Small-Animal">Small Animals</a>
           </li>
         </ul>
 
@@ -162,16 +156,13 @@
 
         <ul class="list-unstyled">
           <li>
-            <a href="#!">Home</a>
+            <a href="{{url_for('home')}}">Home</a>
           </li>
           <li>
-            <a href="#!">About Us</a>
+            <a href="{{url_for('meetingAdd')}}">Schedule An Appointment</a>
           </li>
           <li>
-            <a href="#!">Shop</a>
-          </li>
-          <li>
-            <a href="#!">Contact Us</a>
+            <a href="{{url_for('adoptionAdd')}}">Add Pet</a>
           </li>
         </ul>
 
@@ -186,7 +177,7 @@
 
   <!-- Copyright -->
   <div class="footer-copyright text-center py-3">© 2019 Copyright:
-    <a href="https://mdbootstrap.com/education/bootstrap/"> falconStore.com</a>
+    <a href="/home"> secondchance.com</a>
   </div>
   <!-- Copyright -->
 
