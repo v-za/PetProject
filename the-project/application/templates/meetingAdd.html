@@ -1,11 +1,11 @@
 {% extends "layout.html" %}
 {% block content %}
     <div class ="content-section">
-      <form method="POST" action="">
+	<form method="POST" action="">
         {{ form.hidden_tag() }}
         <fieldset class="form-group">
             <legend class="">Set Up a Meeting</legend>
-            <div class="form-group">
+            <div class="form-group col-lg-4">
               {{  form.date.label(class="form-control-label") }}
               {{  form.date(class="form-control form-control-sm") }}
             </div>

@@ -4,7 +4,7 @@ import secrets
 from flask import render_template, url_for, flash, redirect, request, abort, session
 from application import app, db
 
-from application.forms import UserRegistrationForm, UserLoginForm, AdoptionAddForm, ProductAddForm, UpdateAccountForm, MeetingAddForm
+from application.forms import UserRegistrationForm, UserLoginForm, AdoptionAddForm, ProductAddForm, UpdateAccountForm, MeetingAddForm, UpdateAccountFormUsername, UpdateAccountFormEmail, UpdateAccountFormPicture
 from application.models import Pet, User, Product, PetRequest, Meeting
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
@@ -85,14 +85,13 @@ def logout():
 def register():
     form = UserRegistrationForm()
     if form.validate_on_submit():
-        user = User(username=form.username.data, firstName=form.firstName.data, lastName=form.lastName.data,
-                    phone=form.phone.data, email=form.email.data, password=form.password.data)
+        user = User(username=form.username.data.lower(), firstName=form.firstName.data.capitalize(), lastName=form.lastName.data.capitalize(),
+                    phone=form.phone.data, email=form.email.data.lower(), password=form.password.data)
         db.session.add(user)
         db.session.commit()
         login_user(user)
         # put in layout template that the flash messages show
-        flash(
-            f'Account created for {form.firstName.data} {form.lastName.data}!', 'success')
+        flash(f'Account created for {form.firstName.data} {form.lastName.data}!', 'success')
         return redirect(url_for('home'))
     return render_template('register.html', title='Register', form=form)
 
@@ -152,21 +151,24 @@ def save_picture(form_picture):
 @app.route("/adoptionAdd", methods=['GET', 'POST'])
 def adoptionAdd():
     form = AdoptionAddForm()
-    if form.validate_on_submit():
-        picture_file = save_picture(form.picture.data)
-        pet = PetRequest(petName=form.name.data, petType=form.type.data, petGender=form.gender.data, petBreed=form.breed.data, petAge=form.age.data, petWeight=form.weight.data,
-                         petContactFirstName=form.contactFirstName.data, petContactLastName=form.contactLastName.data, petContactEmail=form.contactEmail.data, petContactPhone=form.contactPhone.data, petImage=picture_file)
-        db.session.add(pet)
-        db.session.commit()
-        flash(f'Application Has Been Sent for {form.name.data}!', 'success')
-        return redirect(url_for('adoptionAdd'))
-    elif request.method == 'GET':
-        form.contactFirstName.data = current_user.firstName
-        form.contactLastName.data = current_user.lastName
-        form.contactEmail.data = current_user.email
-        form.contactPhone.data = current_user.phone
-    return render_template('adoptionAdd.html', title='Add Pet', form=form)
+    if(current_user.is_authenticated):
+        if form.validate_on_submit():
+            picture_file = save_picture(form.picture.data)
+            pet = PetRequest(petName=form.name.data, petType=dict(form.type.choices).get(form.type.data), petGender=dict(form.gender.choices).get(form.gender.data), petBreed=form.breed.data, petAge=form.age.data, petWeight=form.weight.data,
+                             petContactFirstName=form.contactFirstName.data, petContactLastName=form.contactLastName.data, petContactEmail=form.contactEmail.data, petContactPhone=form.contactPhone.data, petImage=picture_file)
+            db.session.add(pet)
+            db.session.commit()
+            flash(f'Application Has Been Sent for {form.name.data}!', 'success')
+            return redirect(url_for('adoptionAdd'))
+        elif request.method == 'GET':
+            form.contactFirstName.data = current_user.firstName
+            form.contactLastName.data = current_user.lastName
+            form.contactEmail.data = current_user.email
+            form.contactPhone.data = current_user.phone
+        return render_template('adoptionAdd.html', title='Add Pet', form=form)
 
+    else:
+        return render_template('requestLogin.html', title="Please Log In")
 
 @app.route("/meetingAdd", methods=['GET', 'POST'])
 def meetingAdd():

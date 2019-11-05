@@ -2,10 +2,12 @@
 
 
 {% block content %}
-<div class="container-fluid bg-white">
-  <div class="row justify-content-center align-self-center mb-5">
-    <div class="col-lg-4 text-center border border-white">
-      <img src="../static/profile_pics/{{current_user.userPic}}" alt="Profile Picture" class="img-fluid rounded-circle" width="100">
+<div class="container-fluid bg-white mb-0">
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 text-center border border-white mt-5">
+      <div class="image mx-auto text-center mb-3">
+        <img src="../static/profile_pics/{{current_user.userPic}}" alt="Profile Picture" class="img-fluid rounded-circle" width="100">
+      </div>
       <span class="h2">Hi {{ current_user.firstName }}</span>
     </div>
   </div>

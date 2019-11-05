@@ -32,10 +32,6 @@
         </button>
 
           <div class="collapse navbar-collapse" id="collapsibleNavbar">
-            <form class="form-inline my-2 my-lg-0">
-              <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
-            </form>
             <ul class="navbar-nav ml-auto text-center">
               <li class="nav-item">
                 <a class="nav-link" href="{{url_for('home')}}">Home</a>
@@ -74,7 +70,7 @@
 
             {% else %}
             <li class="nav-item">
-              <a class="nav-link" href="{{url_for('login')}}"><button class="btn btn-warning btn-sm" type="button" name="button">Login</button></a>
+              <a class="nav-link" href="{{url_for('login')}}"><button class="btn btn-info btn-sm" type="button" name="button">Login</button></a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{url_for('register')}}"><button class="btn btn-success btn-sm" type="button" name="button">Sign-Up</button></a>
@@ -88,7 +84,7 @@
         {% with messages = get_flashed_messages(with_categories = true) %}
           {% if messages%}
             {% for category, message in messages %}
-            <div class="row justify-content-center align-self-center">
+            <div class="row justify-content-center align-self-center bg-white">
               <div class="col-md-8 text-center">
                 <div class="alert alert-{{ category }}">
                   {{ message }}
@@ -136,22 +132,22 @@
 
         <ul class="list-unstyled">
           <li>
-            <a href="#!">Dog</a>
+            <a href="/adopt/Dog">Dog</a>
           </li>
           <li>
-            <a href="#!">Cat</a>
+            <a href="/adopt/Cat">Cat</a>
           </li>
           <li>
-            <a href="#!">Fish</a>
+            <a href="/adopt/Fish">Fish</a>
           </li>
           <li>
-            <a href="#!">Reptile</a>
+            <a href="/adopt/Reptile">Reptile</a>
           </li>
           <li>
-            <a href="#!">Bird</a>
+            <a href="/adopt/Bird">Bird</a>
           </li>
           <li>
-            <a href="#!">Small Animals</a>
+            <a href="/adopt/Small-Animal">Small Animals</a>
           </li>
         </ul>
 
@@ -166,13 +162,13 @@
 
         <ul class="list-unstyled">
           <li>
-            <a href="#!">Home</a>
+            <a href="{{url_for('home')}}">Home</a>
           </li>
           <li>
             <a href="#!">About Us</a>
           </li>
           <li>
-            <a href="#!">Shop</a>
+            <a href="{{url_for('shop')}}">Shop</a>
           </li>
           <li>
             <a href="#!">Contact Us</a>
