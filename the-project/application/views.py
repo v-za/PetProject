@@ -2,23 +2,72 @@
 import os
 import secrets
 from flask import render_template, url_for, flash, redirect, request, abort, session
-from application import app, db
+from application import app, db,login_manager,bcrypt
 
 from application.forms import UserRegistrationForm, UserLoginForm, AdoptionAddForm, ProductAddForm, UpdateAccountForm, MeetingAddForm, UpdateAccountFormUsername, UpdateAccountFormEmail, UpdateAccountFormPicture
 from application.models import Pet, User, Product, PetRequest, Meeting
-from flask_admin import Admin
+from flask_admin import Admin, AdminIndexView, BaseView, expose
 from flask_admin.contrib.sqla import ModelView
 from flask_login import login_user, current_user, logout_user, login_required
+from functools import wraps
 
 
-admin = Admin(app)
+
 ## ADMIN VIEWS ####
 
 
+# decorators
+
+# login role decorator
+
+def login_required(role="open"):
+    def wrapped(fn):
+        @wraps(fn)
+        def decorated_view(*args, **kwargs):
+            if not current_user.is_authenticated:
+              return login_manager.unauthorized()
+            if ((current_user.userRole != role) and (role != "open")):
+                return login_manager.unauthorized()
+            return fn(*args, **kwargs)
+        return decorated_view
+    return wrapped
+
+
+class adminHomeView(AdminIndexView):
+
+    def is_accessible(self):
+
+        if current_user.is_authenticated and current_user.userRole=="admin":
+            return True
+        else:
+            return False
+
+    def inaccessible_callback(self, name, **kwargs):
+        if current_user.is_authenticated:
+            return redirect(url_for('myaccount'))
+        else:
+            return redirect(url_for('login'))
+
+
+
 class adminModelView(ModelView):
-    pass
+
+    def is_accessible(self):
+
+        if current_user.is_authenticated and current_user.userRole=="admin":
+            return True
+        else:
+            return False
+
+    def inaccessible_callback(self, name, **kwargs):
+        if current_user.is_authenticated:
+            return redirect(url_for('myaccount'))
+        else:
+            return redirect(url_for('login'))
 
 
+
+admin = Admin(app,index_view = adminHomeView())
 admin.add_view(adminModelView(Pet, db.session))
 admin.add_view(adminModelView(User, db.session))
 admin.add_view(adminModelView(Product, db.session))
@@ -39,7 +88,6 @@ def home():
 
 
 @app.route('/about')
-@login_required
 def about():
     return render_template('about.html', title="About")
 
@@ -85,8 +133,9 @@ def logout():
 def register():
     form = UserRegistrationForm()
     if form.validate_on_submit():
+        hash_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         user = User(username=form.username.data.lower(), firstName=form.firstName.data.capitalize(), lastName=form.lastName.data.capitalize(),
-                    phone=form.phone.data, email=form.email.data.lower(), password=form.password.data)
+                    phone=form.phone.data, email=form.email.data.lower(), password=hash_password)
         db.session.add(user)
         db.session.commit()
         login_user(user)
@@ -102,7 +151,8 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         # show Austin how to debug (form.data.password)
-        if user and (user.password == form.password.data):
+
+        if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user)
             # put in layout template that the flash messages show
             flash(f'Logged in {user.firstName} {user.lastName}!', 'success')
