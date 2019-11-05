@@ -36,7 +36,7 @@ def login_required(role="open"):
 class adminHomeView(AdminIndexView):
 
     def is_accessible(self):
-
+        return True
         if current_user.is_authenticated and current_user.userRole=="admin":
             return True
         else:
@@ -53,7 +53,7 @@ class adminHomeView(AdminIndexView):
 class adminModelView(ModelView):
 
     def is_accessible(self):
-
+        return True
         if current_user.is_authenticated and current_user.userRole=="admin":
             return True
         else:

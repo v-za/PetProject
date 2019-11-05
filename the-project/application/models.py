@@ -83,5 +83,5 @@ class Meeting(db.Model):
     def __repr__(self):
         return f"Product('{self.meetingName}','{self.meetingDate}')"
 
-#db.drop_all()
+db.drop_all()
 db.create_all()
