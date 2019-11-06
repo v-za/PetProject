@@ -12,10 +12,59 @@ body {
   border-width: thick;
 }
 
+.btn-link{
+  color: #F26101;
+}
+
+.btn-link:hover{color: #F26101;}
+
+
+
 .btn-primary {
   border-color: #F26101;
   background-color: #F26101;
+  padding: 8px 10px;
+  font-size: 13px;
+
 }
+
+.btn-primary:hover{
+  padding: 12px 18px;
+  border-color: #F26101;
+  background-color: #F26101;
+  font-size: 16px;
+}
+
+.btn-outline-secondary-sm {
+  border-color: #F26101;
+  background-color: #FFFFFF;
+  color: #F26101;
+  padding: 5px 5px;
+  font-size: 12px;
+}
+
+.button-h {
+
+  border-color: #F26101;
+  background-color: #F26101;
+  color: #FFFFFF;
+  opacity: 0.85;
+
+}
+
+.btn-outline-secondary-sm:hover{
+  background-color: #F26101;
+  border-color: #F26101;
+  color: #FFFFFF;
+}
+
+.button-h:hover {opacity: 1}
+
+
+
+
+
+
 
 .dropdown:hover > .dropdown-menu {
     display: block;
@@ -218,6 +267,17 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 1.5rem;
     font-family: Impact,Haettenschweiler,Franklin Gothic Bold,Charcoal,Helvetica Inserat,Bitstream Vera Sans Bold,Arial Black,sans serif;
 
+}
+
+.no-gutters {
+  margin-right: 0;
+  margin-left: 0;
+
+  > .col,
+  > [class*="col-"] {
+    padding-right: 0;
+    padding-left: 0;
+  }
 }
 
 .pet-image {

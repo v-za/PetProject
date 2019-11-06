@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
 
+
 <div class="container-fluid m-0 p-0">
   <header class="mastheadAll">
     <div class="container-fluid h-100">
@@ -12,132 +13,256 @@
     </div>
 </div>
 
-<form method="post" class="text-center">
-  <div class=" col-lg-6 mx-auto mt-5 border border-warning">
-  <div class="form-check form-check-inline">
-    <input type="checkbox" name="Animal" value="Dog"  >
-    <label class="form-check-label" for="Dog">
-      Dog
-    </label>
-  </div>
-  <div class="form-check form-check-inline">
-    <input type="checkbox" name="Animal" value="Cat"  >
-    <label class="form-check-label" for="Cat">
-      Cat
-    </label>
-  </div>
 
-  <div class="form-check form-check-inline">
-    <input type="checkbox" name="Animal" value="Fish"  >
-    <label class="form-check-label" for="Fish">
-      Fish
-    </label>
-  </div>
 
-  <div class="form-check form-check-inline">
-    <input type="checkbox" name="Animal" value="Bird"  >
-    <label class="form-check-label" for="Bird">
-      Bird
-    </label>
-  </div>
+<div class="container-fluid ">
 
-  <div class="form-check form-check-inline">
-    <input type="checkbox" name="Animal" value="Reptile"  >
-    <label class="form-check-label" for="Reptile">
-      Reptile
-    </label>
-  </div>
+  <div class="row no-gutters">
+    <div class="col-2">
 
-  <div class="form-check form-check-inline">
-    <input type="checkbox" name="Animal" value="Small-Animal"  >
-    <label class="form-check-label" for="Small-Animal">
-      Small-Animal
-    </label>
-  </div>
-<input type="submit">
-</div>
-</form>
 
-<div class="container p-4 mb-4 mt-3">
-  <div class="row">
-    {% for pet in pets %}
-    <div class="col-lg-2 mb-4">
-      <div class="thumbnail text-center">
-        <a href="#" data-toggle="modal" data-target="#myModal">
-          <img src="../static/animal_pics/{{pet.petImage}}" class="rounded-circle pet-image shadow-lg img-fluid" alt="Animal" width="150">
-        </a>
-          <button type="button" class="btn storeColor mt-2" data-toggle="modal" data-target="#myModal{{pet.id}}">
-            Meet {{pet.petName}}
-          </button>
-      </div>
-
-      <!-- The Modal -->
-  <div class="modal" id="myModal{{pet.id}}">
-    <div class="modal-dialog">
-      <div class="modal-content">
-
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">{{pet.petName}}</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <div class="container-fluid p-2 mb-1 mt-3">
+        <div id="accordion">
+      <div class="card" style="width: 14rem;">
+        <div class="card-header font-weight-bold storeColor">
+          Filter By
         </div>
-
-        <!-- Modal body -->
-        <div class="modal-body text-center">
-          <img src="../static/animal_pics/{{pet.petImage}}" class="img-fluid rounded" alt="" width="280">
-          <div class="container mt-3">
-            <div class="row justify-content-center align-self-center">
-              <div class="col-lg-4">
-                <h5>Breed - {{pet.petBreed}}</h5>
-              </div>
-              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                <h5>Gender - {{pet.petGender}}</h5>
-              </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="checkListOne">
+              <h5 class="mb-0">
+                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                  Animals
+                </button>
+              </h5>
             </div>
-            <div class="row justify-content-center align-self-center">
-              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                <h5>Age - {{pet.petAge}}</h5>
-              </div>
-              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                <h5>Weight - {{pet.petWeight}}</h5>
+
+            <div id="collapseOne" class="collapse " aria-labelledby="checkListOne" data-parent="#accordion">
+              <div class="card-body">
+                <form method="post" class="">
+
+                              <div class=" align-left ">
+                              <div class="form-check mb-1 mt-3">
+                                <input type="checkbox" name="Animal" value="Dog"  >
+                                <label class="form-check-label" for="Dog">
+                                  Dog
+                                </label>
+                              </div>
+                              <div class="form-check mb-1 ">
+                                <input type="checkbox" name="Animal" value="Cat"  >
+                                <label class="form-check-label" for="Cat">
+                                  Cat
+                                </label>
+                              </div>
+
+                              <div class="form-check mb-1">
+                                <input type="checkbox" name="Animal" value="Fish"  >
+                                <label class="form-check-label" for="Fish">
+                                  Fish
+                                </label>
+                              </div>
+
+                              <div class="form-check mb-1">
+                                <input type="checkbox" name="Animal" value="Bird"  >
+                                <label class="form-check-label" for="Bird">
+                                  Bird
+                                </label>
+                              </div>
+
+                              <div class="form-check  mb-1 ">
+                                <input type="checkbox" name="Animal" value="Reptile"  >
+                                <label class="form-check-label" for="Reptile">
+                                  Reptile
+                                </label>
+                              </div>
+
+                              <div class="form-check mb-1">
+                                <input type="checkbox" name="Animal" value="Small-Animal"  >
+                                <label class="form-check-label" for="Small-Animal">
+                                  Small-Animal
+                                </label>
+                              </div>
+                            <input type="submit" class = "btn btn-outline-secondary-sm   mt-2 mb-3 ml-3 ">
+                            </div>
+                            </form>
+
               </div>
             </div>
           </div>
-          <hr>
-          <div class="container">
-            <div class="row justify-content-center align-self-center">
-              <div class="col-12-lg text-center">
-                <h4>Meet {{pet.petName}}</h4>
+          <div class="card">
+              <div class="card-header" id="checkListTwo">
+                <h5 class="mb-0">
+                  <button class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseOne">
+                    Size
+                  </button>
+                </h5>
+              </div>
+
+              <div id="collapseTwo" class="collapse " aria-labelledby="checkListTwo" data-parent="#accordion">
+                <div class="card-body">
+
+                        To be filled.
+
+                </div>
               </div>
             </div>
-            <div class="row justify-content-center align-self-center">
-              <div class="col-lg-7">
-                <p>{{pet.petName}} would love to meet you. Schedule an appointment today!</p>
+            <div class="card">
+                <div class="card-header" id="checkListThree">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseOne">
+                      Age
+                    </button>
+                  </h5>
+                </div>
+
+                <div id="collapseThree" class="collapse " aria-labelledby="checkListThree" data-parent="#accordion">
+                  <div class="card-body">
+
+                          To be filled.
+
+                  </div>
+                </div>
               </div>
-            </div>
-            <div class="row justify-content-center align-self-center">
-              <a href="{{url_for('meetingAdd')}}">
-                <button class="btn btn-primary mt-2" type="button" name="button">Schedule An Appointment</button>
+
+        </div>
+
+
+
+      </div>
+
+      </div>
+
+
+
+
+
+
+    <div class="col-10 ">
+
+      <div class="container-fluid p-2 mb-1 mt-3">
+        <div class="row ">
+          {% for pet in pets %}
+          <div class="col-lg-2 mb-4">
+            <div class="thumbnail text-center">
+              <a href="#" data-toggle="modal" data-target="#myModal">
+                <img src="../static/animal_pics/{{pet.petImage}}" class="rounded-circle pet-image shadow-lg img-fluid" alt="Animal" width="150">
               </a>
+                <button type="button" class="btn btn-primary mt-2" data-toggle="modal" data-target="#myModal{{pet.id}}">
+                  Meet {{pet.petName}}
+                </button>
+            </div>
+
+            <!-- The Modal -->
+        <div class="modal" id="myModal{{pet.id}}">
+          <div class="modal-dialog">
+            <div class="modal-content">
+
+              <!-- Modal Header -->
+              <div class="modal-header storeColor">
+                <h4 class="modal-title text-white">{{pet.petName}}</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+
+              <!-- Modal body -->
+              <div class="modal-body text-center">
+                <img src="../static/animal_pics/{{pet.petImage}}" class="img-fluid rounded" alt="" width="280">
+                <div class="container mt-3">
+                  <div class="row justify-content-center align-self-center">
+                    <div class="col-lg-4">
+                      <h5>Breed - {{pet.petBreed}}</h5>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                      <h5>Gender - {{pet.petGender}}</h5>
+                    </div>
+                  </div>
+                  <div class="row justify-content-center align-self-center">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                      <h5>Age - {{pet.petAge}}</h5>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                      <h5>Weight - {{pet.petWeight}}</h5>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+                <div class="container">
+                  <div class="row justify-content-center align-self-center">
+                    <div class="col-12-lg text-center">
+                      <h4>Meet {{pet.petName}}</h4>
+                    </div>
+                  </div>
+                  <div class="row justify-content-center align-self-center">
+                    <div class="col-lg-7">
+                      <p>{{pet.petName}} would love to meet you. Schedule an appointment today!</p>
+                    </div>
+                  </div>
+                  <div class="row justify-content-center align-self-center">
+                    <a href="{{url_for('meetingAdd')}}">
+                      <button class="btn button-h mt-2" type="button" name="button">Schedule An Appointment</button>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Modal footer -->
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+              </div>
+
             </div>
           </div>
         </div>
 
-        <!-- Modal footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+
+          </div>
+          {% endfor %}
         </div>
 
       </div>
     </div>
+
+
+
   </div>
-
-
-    </div>
-    {% endfor %}
-  </div>
-
 </div>
+
+<div class="jumbotron bg-white mb-0 " id="section2">
+  <div class="container p-5 section2">
+
+    <div class="row justify-content-center align-self-center p-5">
+      <div class="col-lg-6 text-center">
+         <h2>We Are The Epitome of Customer and Pet Service</h2>
+          <p>Keep an eye out, because we have some new features coming in the future. Short-term pet-sitting for while you're at work, as long as longer kennel stays for while you're on a trip will be available soon. Also keep an eye out for pet training programs, and have the opportunity to let your pet come and play with other animals at our playground.</p>
+      </div>
+      <div class="col-lg-6 p-5 text-center border border-warning">
+        <h2>How can we care for your pet?</h2>
+        <div class="row align-items-center">
+          <div class="col-lg-6 text-center">
+            <img src="../static/images/grooming.png" class="img-fluid" alt="Grooming">
+            <p class="image-text">Pet Sitting</p>
+          </div>
+          <div class="col-lg-6 text-center">
+            <img src="../static/images/pet1.png" class="img-fluid" alt="Grooming">
+            <p class="image-text">Pet Training</p>
+          </div>
+          <div class="col-lg-6">
+            <img src="../static/images/pet2.png" class="img-fluid" alt="Grooming">
+            <p class="image-text">Pet Kennel</p>
+          </div>
+          <div class="col-lg-6">
+            <img src="../static/images/pet3.png" class="img-fluid" alt="Grooming">
+            <p class="image-text">Playground</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
 
 
 {% endblock %}
