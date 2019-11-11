@@ -33,7 +33,10 @@ class Pet(db.Model):
     petBreed = db.Column(db.String(20),nullable=False)
     petAge = db.Column(db.Integer,nullable=False)
     petWeight = db.Column(db.Integer,nullable=False)
+    petSize = db.Column(db.String(20),nullable=False)
+    petAgeGroup = db.Column(db.String(20),nullable=False)
     petImage = db.Column(db.String(20), nullable=False)
+
 
 #method for how our object is printed when printeed out
     def __repr__(self):
@@ -83,5 +86,5 @@ class Meeting(db.Model):
     def __repr__(self):
         return f"Product('{self.meetingName}','{self.meetingDate}')"
 
-#db.drop_all()
+db.drop_all()
 db.create_all()

@@ -36,7 +36,7 @@ def login_required(role="open"):
 class adminHomeView(AdminIndexView):
 
     def is_accessible(self):
-
+        return True
         if current_user.is_authenticated and current_user.userRole=="admin":
             return True
         else:
@@ -57,6 +57,7 @@ class adminModelView(ModelView):
 
 
     def is_accessible(self):
+        return True
 
         if current_user.is_authenticated and current_user.userRole=="admin":
             return True
@@ -108,9 +109,26 @@ def adopt(petType):
 def pets():
     pets = Pet.query.all()
     list = []
+    list1 = []
+    list2 = []
     if request.method == "POST":
+
         list = request.form.getlist("Animal")
-        pets = Pet.query.filter(Pet.petType.in_(list)).all()
+        list1 = request.form.getlist("Size")
+        list2 = request.form.getlist("Age")
+
+        if len(list) == 0:
+            list = ['Dog','Cat','Fish', 'Bird', 'Reptile', 'Small-Animal']
+
+        if len(list1) == 0:
+            list1 = ['Small', 'Medium', 'Large']
+
+        if len(list2) == 0:
+            list2 = ['0-9','10-19','20-29', '30-39', '40-49', '50-59','60+']
+
+
+        pets = Pet.query.filter(Pet.petType.in_(list)).filter(Pet.petSize.in_(list1)).filter(Pet.petAgeGroup.in_(list2)).all()
+
     return render_template('allPets.html', title="Pets", pets=pets)
 
 
@@ -278,6 +296,34 @@ def applications():
     else:
         return render_template('requestLogin.html', title="Please Log In")
 
+
+def size(weight):
+    if weight < 15:
+        return 'Small'
+    elif weight >= 15 and weight < 50:
+        return 'Medium'
+    else:
+        return 'Large'
+
+
+def agePet(age):
+    if age < 10:
+        return '0-9'
+    elif age >= 10 and age < 20:
+        return '10-19'
+    elif age >= 20 and age < 30:
+        return '20-29'
+    elif age >= 30 and age < 40:
+        return '30-39'
+    elif age >= 40 and age < 50:
+        return '40-49'
+    elif age >= 50 and age < 60:
+        return '50-59'
+    else:
+        return '60+'
+
+
+
 @app.route("/applications/<petID>/<method>", methods=['GET', 'POST'])
 def applicationsID(petID,method):
     if(current_user.is_authenticated and current_user.userRole == 'admin'):
@@ -288,7 +334,8 @@ def applicationsID(petID,method):
             flash(f'Application for {pet.petName} has been declined.', 'danger')
         elif method == 'approve':
             petR = PetRequest.query.filter_by(id=petID).one()
-            pet = Pet(petName = petR.petName, petType=petR.petType, petGender=petR.petGender, petBreed=petR.petBreed, petAge = petR.petAge, petWeight=petR.petWeight, petImage = petR.petImage)
+
+            pet = Pet(petName = petR.petName, petType=petR.petType, petGender=petR.petGender, petBreed=petR.petBreed, petAge = petR.petAge, petWeight=petR.petWeight, petSize = size(petR.petWeight), petAgeGroup = agePet(petR.petAge), petImage = petR.petImage)
             db.session.add(pet)
             db.session.delete(petR)
             db.session.commit()

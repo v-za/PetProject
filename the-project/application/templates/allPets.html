@@ -19,6 +19,7 @@
 
   <div class="row no-gutters">
     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+      <form method="post" class="">
 
       <div class="container-fluid p-2 mb-1 mt-3">
         <div id="accordion">
@@ -30,7 +31,7 @@
         <div class="card">
             <div class="card-header" id="checkListOne">
               <h5 class="mb-0">
-                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                <button type = "button" class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                   Animals
                 </button>
               </h5>
@@ -38,7 +39,7 @@
 
             <div id="collapseOne" class="collapse " aria-labelledby="checkListOne" data-parent="#accordion">
               <div class="card-body">
-                <form method="post" class="">
+
 
                               <div class=" align-left ">
                               <div class="form-check mb-1 mt-3">
@@ -81,9 +82,10 @@
                                   Small-Animal
                                 </label>
                               </div>
-                            <input type="submit" class = "btn btn-outline-secondary-sm   mt-2 mb-3 ml-3 ">
+
                             </div>
-                            </form>
+
+
 
               </div>
             </div>
@@ -91,7 +93,7 @@
           <div class="card">
               <div class="card-header" id="checkListTwo">
                 <h5 class="mb-0">
-                  <button class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseOne">
+                  <button  type = "button" class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseOne">
                     Size
                   </button>
                 </h5>
@@ -100,7 +102,33 @@
               <div id="collapseTwo" class="collapse " aria-labelledby="checkListTwo" data-parent="#accordion">
                 <div class="card-body">
 
-                        To be filled.
+
+                    <div class=" align-left ">
+                    <div class="form-check mb-1 mt-3">
+                      <input type="checkbox" name="Size" value="Small"  >
+                      <label class="form-check-label" for="Small">
+                        Small
+                      </label>
+                    </div>
+                    <div class="form-check mb-1 ">
+                      <input type="checkbox" name="Size" value="Medium"  >
+                      <label class="form-check-label" for="Medium">
+                        Medium
+                      </label>
+                    </div>
+
+                    <div class="form-check mb-1">
+                      <input type="checkbox" name="Size" value="Large"  >
+                      <label class="form-check-label" for="Large">
+                        Large
+                      </label>
+                    </div>
+
+
+
+                  </div>
+
+
 
                 </div>
               </div>
@@ -108,7 +136,7 @@
             <div class="card">
                 <div class="card-header" id="checkListThree">
                   <h5 class="mb-0">
-                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseOne">
+                    <button class="btn btn-link" type = "button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseOne">
                       Age
                     </button>
                   </h5>
@@ -117,17 +145,89 @@
                 <div id="collapseThree" class="collapse " aria-labelledby="checkListThree" data-parent="#accordion">
                   <div class="card-body">
 
-                          To be filled.
+                    <div class=" align-left ">
+                    <div class="form-check mb-1 mt-3">
+                      <input type="checkbox" name="Age" value="0-9"  >
+                      <label class="form-check-label" for="0-9">
+                        0-9
+                      </label>
+                    </div>
+                    <div class="form-check mb-1 ">
+                      <input type="checkbox" name="Age" value="10-19"  >
+                      <label class="form-check-label" for="10-19">
+                        10-19
+                      </label>
+                    </div>
+
+                    <div class="form-check mb-1">
+                      <input type="checkbox" name="Age" value="20-29"  >
+                      <label class="form-check-label" for="20-29">
+                        20-29
+                      </label>
+                    </div>
+
+                    <div class="form-check mb-1">
+                      <input type="checkbox" name="Age" value="30-39"  >
+                      <label class="form-check-label" for="30-39">
+                        30-39
+                      </label>
+                    </div>
+
+                    <div class="form-check  mb-1 ">
+                      <input type="checkbox" name="Age" value="40-49"  >
+                      <label class="form-check-label" for="40-49">
+                        40-49
+                      </label>
+                    </div>
+
+                    <div class="form-check mb-1">
+                      <input type="checkbox" name="Age" value="50-59"  >
+                      <label class="form-check-label" for="50-59">
+                        50-59
+                      </label>
+                    </div>
+
+                    <div class="form-check mb-1">
+                      <input type="checkbox" name="Age" value="60+"  >
+                      <label class="form-check-label" for="60+">
+                        60+
+                      </label>
+                    </div>
+
+                  </div>
+
+
+
 
                   </div>
                 </div>
               </div>
+              <div class="card">
+                  <div class="card-header" id="checkListFour">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link"  data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseOne">
+                        Submit
+                      </button>
+                    </h5>
+                  </div>
+
+                  <div id="collapseFour" class="collapse " aria-labelledby="checkListFour" data-parent="#accordion">
+                    <div class="card-body">
+                      <input type="submit" class = "btn btn-outline-secondary-sm   mt-2 mb-3 ml-3 ">
+                      </div>
+                      </div>
+                      </div>
 
         </div>
 
 
 
       </div>
+
+
+
+
+      </form>
 
       </div>
 
