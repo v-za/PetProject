@@ -6,26 +6,32 @@
 
   <table class="table table-hover">
   <thead>
-    <tr>
+    <tr class="text-center">
       <th scope="col">Pet Image</th>
       <th scope="col">Pet Name</th>
       <th scope="col">Pet Age</th>
       <th scope="col">Pet Breed</th>
+      <th scope="col">Pet Weight</th>
       <th scope="col">Pet Documents</th>
     </tr>
   </thead>
   <tbody>
     {% for pet in pets %}
-      <tr>
+      <tr class="text-center">
         <th scope="row">
           <div class=" app-image">
-            <img src="../static/animal_pics/{{pet.petImage}}" class="img-fluid rounded" alt="Pet">
+            <img src="../static/animal_pics/{{pet.petImage}}" alt="{{pet.petName}}" class="img-fluid rounded">
           </div>
         </th>
         <td>{{pet.petName}}</td>
         <td>{{pet.petAge}}</td>
         <td>{{pet.petBreed}}</td>
-        <td>{{pet.petDocument}}</td>
+        <td>{{pet.petWeight}}lbs</td>
+        <td>
+          <div class=" app-image">
+            <img src="../static/document_files/{{pet.petDocument}}" alt="Documents" class="img-fluid rounded">
+          </div>
+        </td>
         <td>
           <form method="POST" action="">
             <fieldset class="form-group">

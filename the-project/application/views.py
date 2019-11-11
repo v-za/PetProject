@@ -18,7 +18,6 @@ from pdf2image.exceptions import (
     PDFPageCountError,
     PDFSyntaxError
 )
-import tempfile
 
 
 ## ADMIN VIEWS ####
@@ -230,7 +229,8 @@ def save_document(form_document):
     picture_path = os.path.join(
         app.root_path, 'static/document_files', picture_fn)
     form_document.save(picture_path)
-    return picture_fn
+    image =  convert_from_path(picture_path, output_folder='application/static/document_files', single_file=True, paths_only=True, fmt='jpg')
+    return os.path.basename(image[0])
 
 @app.route("/adoptionAdd", methods=['GET', 'POST'])
 def adoptionAdd():

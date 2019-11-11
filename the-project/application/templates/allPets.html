@@ -18,7 +18,7 @@
 <div class="container-fluid ">
 
   <div class="row no-gutters">
-    <div class="col-2">
+    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
 
       <div class="container-fluid p-2 mb-1 mt-3">
         <div id="accordion">
@@ -136,12 +136,12 @@
 
 
 
-    <div class="col-lg-10 ">
+    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
 
       <div class="container-fluid p-2 mb-1 mt-3">
-        <div class="row ">
+        <div class="row align-items-center align-self-center">
           {% for pet in pets %}
-          <div class="col-lg-2 mb-5">
+          <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 mb-5 justify-content-center align-self-center">
             <div class="thumbnail pet-imageT text-center">
               <a href="#" data-toggle="modal" data-target="#myModal">
                 <img src="../static/animal_pics/{{pet.petImage}}" class="rounded-circle pet-image shadow-lg img-fluid" alt="Animal">
@@ -179,7 +179,7 @@
                       <h5>Age - {{pet.petAge}}</h5>
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                      <h5>Weight - {{pet.petWeight}}</h5>
+                      <h5>Weight - {{pet.petWeight}}lbs</h5>
                     </div>
                   </div>
                 </div>
