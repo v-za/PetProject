@@ -12,13 +12,6 @@ from flask_admin.contrib.sqla import ModelView
 from flask_login import login_user, current_user, logout_user, login_required
 from functools import wraps
 
-from pdf2image import convert_from_path, convert_from_bytes
-from pdf2image.exceptions import (
-    PDFInfoNotInstalledError,
-    PDFPageCountError,
-    PDFSyntaxError
-)
-
 
 ## ADMIN VIEWS ####
 
@@ -229,8 +222,7 @@ def save_document(form_document):
     picture_path = os.path.join(
         app.root_path, 'static/document_files', picture_fn)
     form_document.save(picture_path)
-    image =  convert_from_path(picture_path, output_folder='application/static/document_files', single_file=True, paths_only=True, fmt='jpg')
-    return os.path.basename(image[0])
+    return picture_fn
 
 @app.route("/adoptionAdd", methods=['GET', 'POST'])
 def adoptionAdd():
