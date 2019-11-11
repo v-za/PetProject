@@ -252,7 +252,6 @@ def adoptionAdd():
         return render_template('adoptionAdd.html', title='Add Pet', form=form)
 
     else:
-        send_email()
         return render_template('requestLogin.html', title="Please Log In")
 
 @app.route("/meetingAdd", methods=['GET', 'POST'])
