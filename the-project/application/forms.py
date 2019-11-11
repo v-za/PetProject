@@ -115,3 +115,9 @@ class UpdateAccountFormPicture(FlaskForm):
 class MeetingAddForm(FlaskForm):
     date = DateField('What date do you want to visit? (Check the list below to see what dates are already taken)',format='%Y-%m-%d',validators=[DataRequired()])
     submit = SubmitField('Submit')
+
+class ApproveForm(FlaskForm):
+    submit = SubmitField('Approve')
+
+class DeclineForm(FlaskForm):
+    submit = SubmitField('Decline')

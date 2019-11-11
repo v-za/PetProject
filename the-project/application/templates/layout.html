@@ -57,7 +57,21 @@
               <li class="nav-item">
                 <a class="nav-link" href="{{url_for('meetingAdd')}}">Schedule An Appointment</a>
               </li>
-              {% if current_user.is_authenticated %}
+
+
+              {% if current_user.is_authenticated and current_user.userRole == 'admin' %}
+              <li class="nav-item">
+                <a class="nav-link" href="{{url_for('applications')}}">Applications</a>
+              </li>
+              <li class="nav-item dropdown ">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"> {{ current_user.firstName }} </a>
+                  <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="/myaccount">My Account</a>
+                    <a class="dropdown-item" href="/logout">Logout</a>
+                  </div>
+              </li>
+
+              {% elif current_user.is_authenticated %}
               <li class="nav-item dropdown ">
                 <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"> {{ current_user.firstName }} </a>
                   <div class="dropdown-menu dropdown-menu-right">

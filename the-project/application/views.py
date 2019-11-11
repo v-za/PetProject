@@ -4,13 +4,21 @@ import secrets
 from flask import render_template, url_for, flash, redirect, request, abort, session
 from application import app, db,login_manager,bcrypt
 
-from application.forms import UserRegistrationForm, UserLoginForm, AdoptionAddForm, ProductAddForm, UpdateAccountForm
+from application.forms import UserRegistrationForm, UserLoginForm, AdoptionAddForm, ProductAddForm, UpdateAccountForm, ApproveForm, DeclineForm
 from application.forms import MeetingAddForm, UpdateAccountFormUsername, UpdateAccountFormEmail, UpdateAccountFormPicture
 from application.models import Pet, User, Product, PetRequest, Meeting
 from flask_admin import Admin, AdminIndexView, BaseView, expose
 from flask_admin.contrib.sqla import ModelView
 from flask_login import login_user, current_user, logout_user, login_required
 from functools import wraps
+
+from pdf2image import convert_from_path, convert_from_bytes
+from pdf2image.exceptions import (
+    PDFInfoNotInstalledError,
+    PDFPageCountError,
+    PDFSyntaxError
+)
+import tempfile
 
 
 ## ADMIN VIEWS ####
@@ -77,6 +85,7 @@ admin.add_view(adminModelView(User, db.session))
 admin.add_view(adminModelView(Product, db.session))
 admin.add_view(adminModelView(PetRequest, db.session))
 admin.add_view(adminModelView(Meeting, db.session))
+
 
 
 @app.errorhandler(404)
@@ -243,6 +252,7 @@ def adoptionAdd():
         return render_template('adoptionAdd.html', title='Add Pet', form=form)
 
     else:
+        send_email()
         return render_template('requestLogin.html', title="Please Log In")
 
 @app.route("/meetingAdd", methods=['GET', 'POST'])
@@ -257,5 +267,38 @@ def meetingAdd():
             db.session.commit()
             return render_template('confirm.html')
         return render_template('meetingAdd.html', title='Set Up A Meeting', form=form, meetings=meetings)
+    else:
+        return render_template('requestLogin.html', title="Please Log In")
+
+@app.route("/applications", methods=['GET', 'POST'])
+def applications():
+    if(current_user.is_authenticated and current_user.userRole == 'admin'):
+        approve = ApproveForm()
+        decline = DeclineForm()
+        pets = PetRequest.query.all()
+        if decline.validate_on_submit():
+            obj = PetRequest.query.filter_by(id=pets.id).all()
+            db.session.delete(obj)
+            db.session.commit()
+        return render_template('applications.html', title='Approve/Disapprove Apps', pets=pets, approve=approve, decline=decline)
+    else:
+        return render_template('requestLogin.html', title="Please Log In")
+
+@app.route("/applications/<petID>/<method>", methods=['GET', 'POST'])
+def applicationsID(petID,method):
+    if(current_user.is_authenticated and current_user.userRole == 'admin'):
+        if method == 'decline':
+            pet = PetRequest.query.filter_by(id=petID).one()
+            db.session.delete(pet)
+            db.session.commit()
+            flash(f'Application for {pet.petName} has been declined.', 'danger')
+        elif method == 'approve':
+            petR = PetRequest.query.filter_by(id=petID).one()
+            pet = Pet(petName = petR.petName, petType=petR.petType, petGender=petR.petGender, petBreed=petR.petBreed, petAge = petR.petAge, petWeight=petR.petWeight, petImage = petR.petImage)
+            db.session.add(pet)
+            db.session.delete(petR)
+            db.session.commit()
+            flash(f'Application for {petR.petName} has been approved!', 'success')
+        return redirect('/applications')
     else:
         return render_template('requestLogin.html', title="Please Log In")
