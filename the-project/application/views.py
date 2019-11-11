@@ -195,20 +195,23 @@ def save_pictureUser(form_picture):
 
 @app.route('/myaccount', methods=['GET', 'POST'])
 def myaccount():
-    form = UpdateAccountForm()
-    if form.validate_on_submit():
-        if form.picture.data:
-            picture_file = save_pictureUser(form.picture.data)
-            current_user.userPic = picture_file
-        current_user.username = form.username.data
-        current_user.email = form.email.data
-        db.session.commit()
-        flash('Your account information was updated successfully!', 'success')
-        return redirect(url_for('myaccount'))
-    elif request.method == 'GET':
-        form.username.data = current_user.username
-        form.email.data = current_user.email
-    return render_template('myAccount.html', title='My Account', form=form)
+    if(current_user.is_authenticated):
+        form = UpdateAccountForm()
+        if form.validate_on_submit():
+            if form.picture.data:
+                picture_file = save_pictureUser(form.picture.data)
+                current_user.userPic = picture_file
+            current_user.username = form.username.data
+            current_user.email = form.email.data
+            db.session.commit()
+            flash('Your account information was updated successfully!', 'success')
+            return redirect(url_for('myaccount'))
+        elif request.method == 'GET':
+            form.username.data = current_user.username
+            form.email.data = current_user.email
+        return render_template('myAccount.html', title='My Account', form=form)
+    else:
+        return render_template('requestLogin.html', title="Please Log In")
 
 
 def save_picture(form_picture):

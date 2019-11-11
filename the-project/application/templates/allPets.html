@@ -7,7 +7,7 @@
     <div class="container-fluid h-100">
       <div class="row h-100 align-items-center">
         <div class="col-12 text-center">
-          <h1 class="text-white text-left">Browse By {{title}}</h1>
+          <h1 class="text-white text-left">Browse By All Pets</h1>
         </div>
       </div>
     </div>
@@ -19,7 +19,6 @@
 
   <div class="row no-gutters">
     <div class="col-2">
-
 
       <div class="container-fluid p-2 mb-1 mt-3">
         <div id="accordion">
@@ -137,15 +136,15 @@
 
 
 
-    <div class="col-10 ">
+    <div class="col-lg-10 ">
 
       <div class="container-fluid p-2 mb-1 mt-3">
         <div class="row ">
           {% for pet in pets %}
-          <div class="col-lg-2 mb-4">
-            <div class="thumbnail text-center">
+          <div class="col-lg-2 mb-5">
+            <div class="thumbnail pet-imageT text-center">
               <a href="#" data-toggle="modal" data-target="#myModal">
-                <img src="../static/animal_pics/{{pet.petImage}}" class="rounded-circle pet-image shadow-lg img-fluid" alt="Animal" width="150">
+                <img src="../static/animal_pics/{{pet.petImage}}" class="rounded-circle pet-image shadow-lg img-fluid" alt="Animal">
               </a>
                 <button type="button" class="btn btn-primary mt-2" data-toggle="modal" data-target="#myModal{{pet.id}}">
                   Meet {{pet.petName}}
